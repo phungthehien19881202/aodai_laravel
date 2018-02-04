@@ -74,7 +74,7 @@
                       <h2>{{number_format($new->unit_price)}}đ</h2>
                       <h3 style="font-size:19px;">{{$new->name}}</h3>
                       <p><a href="{{route('chitietsanpham',$new->id)}}">Xem Chi Tiết</a></p>
-                      <a href="{{route('giohang')}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Cho vào giỏ hàng</a>
+                      <a href="{{route('themgiohang',array('id'=>$new->id,'price'=>$new->unit_price,'name'=>$new->name)) }}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Cho vào giỏ hàng</a>
                     </div>
                    
                 </div>

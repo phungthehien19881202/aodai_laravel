@@ -25,3 +25,5 @@ Route::get('tin-tuc',['as'=>'tintuc','uses'=>'PageController@getTinTuc']);
 
 Route::get('tin-chi-tiet',['as'=>'tinchitiet','uses'=>'PageController@getTinChiTiet']);
 Route::get('gio-hang',['as'=>'giohang','uses'=>'PageController@getGioHang']);
+Route::get('them-hang',['as'=>'themgiohang','uses'=>'PageController@themHang']);
+Route::get('xoa-gio-hang',['as'=>'xoagiohang','uses'=>'PageController@xoahang']);

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Slide;
 use App\Product;
 use App\ProductType;
+use App\Cart;
+use Illuminate\Support\Facades\Redirect;
 
 class PageController extends Controller
 {
@@ -19,6 +21,15 @@ class PageController extends Controller
     	 // cách 1 return view('page.trangchu',['slide'=>$slide]);
        return view('page.trangchu',compact('slide','new_product','aodaicuoi'));
     }
+    public function themHang(Request $reg){
+ 
+      $cart=new Cart();
+      $cart->add( $reg->id, $reg->name,1,$reg->price);
+    
+
+      return Redirect::back();
+    }
+
 
    public function getLoaiSp($product_type_name){
      
@@ -62,6 +73,19 @@ class PageController extends Controller
    		return view('page.tinchitiet');
    }
    public function getGioHang(){
-    return view('page.giohang');
+    $cart=new Cart();
+
+    $arr=$cart->getContent();
+    $total=$cart-> getTotal();
+    return view('page.giohang',compact('arr','total'));
+   }
+
+   public function xoahang(){
+    $cart=new Cart();
+    $cart ->delete($_GET['id']);
+
+    $arr=$cart->getContent();
+    $total=$cart-> getTotal();
+     return view('page.giohang',compact('arr','total'));
    }
 }

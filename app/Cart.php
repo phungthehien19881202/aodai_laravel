@@ -1,45 +1,49 @@
 <?php 
 	namespace App;
 class Cart{
-	public $items = null; 
-	public $totalQty = 0;
-	public $totalPrice = 0;
+    public $items = null;
+ 
+    
+    public function __construct(){
+    	session_start();
+        // get the shopping cart array from the session
+        $this->items = !empty($_SESSION['cart_contents'])?$_SESSION['cart_contents']:NULL;
+        if ($this->items === NULL){
+            // set some base values
+            $this->items = [];
+            $_SESSION['cart_contents'] = $this->items; 
+        } 
+    }
+ 
+    function add($id,$name,$quanity,$price)
+    { 
+    	array_push($this->items, [ 'id'=>$id,'name'=>$name,'quanity'=>$quanity,'price'=>$price,'total'=>$quanity*$price]);
+    	$_SESSION['cart_contents'] = $this->items;
+ 
+    }
 
-	public function__construct($oldCart){
-		if($oldCart){
-			$this->items = $oldCart->items;
-			$this->totalQty = $oldCart->totalQty;
-			$this->totalPrice = $oldCart->totalPrice;
+function getTotal( )
+	{
+		$total=0;
+		foreach ($this->items as $it) {
+			$total+=$it['total'];
 		}
+		return $total;
 	}
-	public function add($item,$id){
-		$giohang = ['qty'=>0,'price'=> $items->unit_price,'item'=>$item];
-		if($this->items){
-			if(array_key_exists($id, $this->items)){
-				$giohang = $this->items[$id];
-			}
-		}
-		$giohang['qty']++;
-		$giohang['price'] = $item->unit_price * $giohang['qty'];
-		$this->items[$id] = $giohang;
-		$this->totalQty++;
-		$this->totalPrice+= $item->unit_price;
+
+	function getContent( )
+	{
+		return $this->items;
 	}
-	// xóa 1
-	public function reduceByOne($id){
-		$this->items[$id]['qty']--;
-		$this->items[$id]['price']-= $this->items[$id]['item']['price'];
-		$this->totalQty--;
-		$this->totalPrice-= $this->items[$id]['item']['price'];
-		if($this->items[$id]['qty']<=0){
-			unset($this->items[$id]);
-		}
-	}
-	// xóa nhiều
-	public function removeItem($id){
-		$this->totalQty-=$this->items[$id]['qty'];
-		$this->totalPrice-=$this->items[$id]['price'];
-		unset($this->items[$id]);
-	}
+   
+
+   function delete($id){
+   		unset(  $this->items[0]);
+   		$_SESSION['cart_contents'] = $this->items;
+
+   }  
 }
+
+ 
+
  ?>
