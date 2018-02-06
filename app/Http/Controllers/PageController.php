@@ -21,15 +21,6 @@ class PageController extends Controller
     	 // cách 1 return view('page.trangchu',['slide'=>$slide]);
        return view('page.trangchu',compact('slide','new_product','aodaicuoi'));
     }
-    public function themHang(Request $reg){
- 
-      $cart=new Cart();
-      $cart->add( $reg->id, $reg->name,1,$reg->price);
-    
-
-      return Redirect::back();
-    }
-
 
    public function getLoaiSp($product_type_name){
      
@@ -88,4 +79,14 @@ class PageController extends Controller
     $total=$cart-> getTotal();
      return view('page.giohang',compact('arr','total'));
    }
+   public function themHang(Request $reg){
+ 
+      $cart=new Cart();
+      $cart->add( $reg->id, $reg->name,1,$reg->price);
+    
+
+      return Redirect::back();
+    }
+  
+    
 }

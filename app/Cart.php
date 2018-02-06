@@ -6,13 +6,11 @@ class Cart{
     
     public function __construct(){
     	session_start();
-        // get the shopping cart array from the session
-        $this->items = !empty($_SESSION['cart_contents'])?$_SESSION['cart_contents']:NULL;
-        if ($this->items === NULL){
-            // set some base values
-            $this->items = [];
-            $_SESSION['cart_contents'] = $this->items; 
-        } 
+        if(!empty($_SESSION['cart_contents'])) // nếu trong session đã có key cart_contents, nghĩa là trong session đã có hàng mua.
+         $this->items=$_SESSION['cart_contents']; //lấy dữ liệu đã lưu trong session 
+        else // chưa có, khi lần đàu mở web,
+          $this->items=[];
+  
     }
  
     function add($id,$name,$quanity,$price)
@@ -38,9 +36,7 @@ function getTotal( )
    
 
    function delete($id){
-   		unset(  $this->items[0]);
-   		$_SESSION['cart_contents'] = $this->items;
-
+   		
    }  
 }
 
