@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+
+
+
 Route::get('index',['as'=>'trang-chu', 'uses'=>'PageController@getIndex']);
 
 Route::get('loai-san-pham/{product_type_name}',['as'=>'loaisanpham','uses'=>'PageController@getLoaiSp']);
@@ -31,8 +35,13 @@ Route::get('xoa-gio-hang',['as'=>'xoagiohang','uses'=>'PageController@xoahang'])
 
 
 // route cho admin
+ 
+ 
+ Route::get('admin/dangnhap','UserController@getdangnhapAdmin');
+ Route::post('admin/dangnhap','UserController@postdangnhapAdmin');
 // admin/loaisanpham/danhsach
 Route::group(['prefix'=>'admin'],function(){
+	// LOAI SAN PHAM
 	Route::group(['prefix'=>'loaisanpham'],function(){
 		Route::get('danhsach','TheloaiController@getDanhSach');
 
@@ -48,9 +57,17 @@ Route::group(['prefix'=>'admin'],function(){
 	});
 
 	Route::group(['prefix'=>'sanpham'],function(){
-		Route::get('danhsach','TheloaiController@getDanhSach');
-		Route::get('sua','TheloaiController@getSua');
-		Route::get('them','TheloaiController@getThem');
+		//SAN PHAM
+		Route::get('danhsach','SanPhamController@getDanhSach');
+
+
+		Route::get('sua/{id}','SanPhamController@getSua');
+		Route::post('sua/{id}','SanPhamController@postSua');
+
+		Route::get('them','SanPhamController@getThem');
+		Route::post('them','SanPhamController@postThem');
+
+		Route::get('xoa/{id}','SanPhamController@postXoa');
 	});
 
 	Route::group(['prefix'=>'tintuc'],function(){
@@ -66,9 +83,20 @@ Route::group(['prefix'=>'admin'],function(){
 	});
 
 	Route::group(['prefix'=>'user'],function(){
-		Route::get('danhsach','TheloaiController@getDanhSach');
-		Route::get('sua','LoaispController@getSua');
-		Route::get('them','LoaispController@getThem');
+		Route::get('danhsach','UserController@getDanhSach');
+
+
+		Route::get('sua/{id}','UserController@getSua');
+		Route::post('sua/{id}','UserController@postSua');
+
+		Route::get('them','UserController@getThem');
+		Route::post('them','UserController@postThem');
+
+		Route::get('xoa/{id}','UserController@postXoa');
 	});
+
+	
+
+
 
 });

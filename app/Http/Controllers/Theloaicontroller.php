@@ -18,7 +18,8 @@ class Theloaicontroller extends Controller
     	$this-> validate($reg,
     		[
     			'Ten'=> 'required|min:3|max:100',
-                'TenK'=> 'required|min:3|max:100'
+                'TenK'=> 'required|min:3|max:100',
+                'Gia'=> 'required|min:3|max:100'
     		],
     		[
     			'required'=>'Bạn không được để trống ',
